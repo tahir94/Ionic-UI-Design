@@ -1,6 +1,6 @@
 <ion-header>
-	<ion-navbar>
-		<button ion-button menuToggle>
+	<ion-navbar *ngIf="isHomeNav">
+		<button (click)="closeMenu()" ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>

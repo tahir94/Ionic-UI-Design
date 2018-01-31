@@ -17,3 +17,9 @@
 .app-content{
 	background: linear-gradient(#F78D53, #F45F73);
 }
+.menu-content {
+	::-webkit-scrollbar{ display:none; } 
+}
+body{
+	::-webkit-scrollbar{ display:none; } 
+}

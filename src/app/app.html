@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu style="width:100%;z-index:1" class="menu-content" [content]="content" >
 
 	<ion-toolbar>
 		<ion-title>Pages</ion-title>
@@ -11,7 +11,7 @@
 			left: 170px;
 			overflow: visible;
 			height: 70%;
-			background: #fabbae7a;">
+			background: #fabbae7a;    border-radius: 10px;">
 
 				  
 					<!-- <ion-card-content> -->
@@ -21,15 +21,20 @@
 					position: relative;
 					bottom: 10px;
 					overflow: visible;
-					background: #fbddd570;">
+					background: #fbddd570;    border-radius: 10px;">
 
 							<!-- <ion-card-content> -->
 							  <!-- Add card content here! -->
 							<!-- </ion-card-content> -->
 							<ion-card style="    height: 106%;
 							bottom: 15px;
-							position: relative;">
-								  
+							position: relative;    border-radius: 10px;">
+							<!-- <button (click)="closeMenu()" ion-button menuToggle> -->
+								<span style="    margin-left: 15px;
+								margin-top: 15px;
+								color:#7797f4;
+								font-size: 30px;" (click)="closeMenu()"><ion-icon name="menu"></ion-icon></span>	
+								<!-- </button> -->
 									<!-- <ion-card-content> -->
 									  <!-- Add card content here! -->
 									<!-- </ion-card-content> -->
@@ -60,5 +65,7 @@
 
 <ion-nav id="nav" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
+
+<!-- <page-home [isHomeNav]="isHomeNav"></page-home> -->
 
 <!-- <ion-nav [root]="rootPage"></ion-nav> -->
