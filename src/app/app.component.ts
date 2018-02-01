@@ -9,18 +9,23 @@ import { LoginPage } from '../pages/login/login';
 	templateUrl: 'app.html',
 })
 export class MyApp {
-  isHomeNav  : boolean;
+	isHomeNav: any = true;
+	isHomePage : boolean = false;
+
+//   isHomeNav  : boolean;
   @ViewChild(Nav) nav: Nav;
-//   @ViewChild(HomePage) HomePage: HomePage;
-  rootPage:any = HomePage;
-  pages: Array<{title: string, component: any}>
+
+  rootPage : any = HomePage;
+  pages : Array<{title: string, component: any}>
+
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+
 	// used for an example of ngFor and navigation
     this.pages = [
 		// { title: 'List', component: ListPage }
 	  ];
-	  this.isHomeNav = true;
+	//   this.isHomeNav = true;
 
 
 
@@ -41,8 +46,11 @@ export class MyApp {
 // 	this.menu.swipeEnable(false);
 // }
 closeMenu(){
+	console.log('closeed');
+	
 	this.menu.close();
-	this.isHomeNav = false;	
+	this.isHomePage  = true;
+	
 }
   openPage(page) {
     // Reset the content nav to have just this page
