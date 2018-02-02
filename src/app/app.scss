@@ -31,14 +31,19 @@
 .menu-button {
 	background-color: transparent;
     color: white;
-    border: 0;
+	border: 0 !important;
+	margin-bottom: 20px;
 }
-.list-md .item-block .item-inner{
-	border:0
+.menu-button:hover{
+	background: #fabbae61
 }
-.menu-button > .item-inner{
-	border:0
+
+.menu-button > div {
+	border:0 !important;
 }
+// .menu-button > .item-inner{
+// 	border:0
+// }
 body{
 	::-webkit-scrollbar{ display:none; } 
 }

@@ -10,21 +10,19 @@
 </ion-header>
 
 <ion-content padding>
-<h1>welcome to the home page</h1>
-		<!-- <ion-list class="menu-list">
-				<button class="menu-button" ion-item (click)="openPage(homePage)">
-					Home
-				</button>
-				<button class="menu-button" ion-item (click)="openPage(friendsPage)">
-					Friends
-				</button>
-				<button class="menu-button" ion-item (click)="openPage(eventsPage)">
-					Events
-				</button>
-				<button class="menu-button" ion-item (click)="closeMenu()">
-					Close Menu
-				</button>
-			</ion-list> -->
+	<h1>welcome to the home page</h1>
+	<ion-list>
+		<button ion-item (click)="itemSelected(item)">
+			list 1
+		</button>
+		<button ion-item (click)="itemSelected(item)">
+			list 1
+		</button>
+		<button ion-item (click)="itemSelected(item)">
+			list 1
+		</button>
+
+	</ion-list>
 	<!-- <ion-menu [content]="mycontent">
 		<ion-content>
 			<ion-list>
