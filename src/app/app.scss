@@ -17,8 +17,27 @@
 .app-content{
 	background: linear-gradient(#F78D53, #F45F73);
 }
+.menu-content > .menu-inner{
+	// ::-webkit-scrollbar{ display:none; } 
+	width : 100%;
+}
 .menu-content {
 	::-webkit-scrollbar{ display:none; } 
+}
+.menu-list{
+	position: relative;
+    bottom: 50%;
+}
+.menu-button {
+	background-color: transparent;
+    color: white;
+    border: 0;
+}
+.list-md .item-block .item-inner{
+	border:0
+}
+.menu-button > .item-inner{
+	border:0
 }
 body{
 	::-webkit-scrollbar{ display:none; } 

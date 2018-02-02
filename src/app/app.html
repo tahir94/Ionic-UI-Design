@@ -14,50 +14,38 @@
 			background: #fabbae7a;    border-radius: 10px;">
 
 
-			<!-- <ion-card-content> -->
-			<!-- Add card content here! -->
-			<!-- </ion-card-content> -->
+		
 			<ion-card style="    height: 105%;
 					position: relative;
 					bottom: 10px;
 					overflow: visible;
 					background: #fbddd570;    border-radius: 10px;">
 
-				<!-- <ion-card-content> -->
-				<!-- Add card content here! -->
-				<!-- </ion-card-content> -->
 				<ion-card style="    height: 106%;
 							bottom: 15px;
 							position: relative;    border-radius: 10px;">
-					<!-- <button (click)="closeMenu()" ion-button menuToggle> -->
+					
 					<span style="margin-left: 15px;
 								margin-top: 15px;
 								color:#7797f4;
 								font-size: 30px;" (click)="closeMenu()">
 						<ion-icon name="menu"></ion-icon>
 					</span>
-					<!-- </button> -->
-					<!-- <ion-card-content> -->
-					<!-- Add card content here! -->
-					<!-- </ion-card-content> -->
 
 				</ion-card>
 			</ion-card>
 		</ion-card>
-		<ion-list>
-			<!-- <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-				{{p.title}}
-			</button> -->
-			<button ion-item (click)="openPage(homePage)">
+		<ion-list class="menu-list">
+			<button class="menu-button" ion-item (click)="openPage(homePage)">
 				Home
 			</button>
-			<button ion-item (click)="openPage(friendsPage)">
+			<button class="menu-button" ion-item (click)="openPage(friendsPage)">
 				Friends
 			</button>
-			<button ion-item (click)="openPage(eventsPage)">
+			<button class="menu-button" ion-item (click)="openPage(eventsPage)">
 				Events
 			</button>
-			<button ion-item (click)="closeMenu()">
+			<button class="menu-button" ion-item (click)="closeMenu()">
 				Close Menu
 			</button>
 		</ion-list>
@@ -65,9 +53,9 @@
 	
 </ion-menu>
 
-<div *ngIf="isHomePage">
+<!-- <div *ngIf="isHomePage">
 <page-home [menuButton]="isHomeNav"></page-home>
-</div>
+</div> -->
 <ion-nav id="nav"  [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
 
