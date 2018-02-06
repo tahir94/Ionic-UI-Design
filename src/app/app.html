@@ -1,16 +1,15 @@
 <ion-menu style="width:100%;z-index:1" class="menu-content" [content]="content">
 
-	<ion-toolbar>
+	<!-- <ion-toolbar>
 		<ion-title>Pages</ion-title>
-	</ion-toolbar>
+	</ion-toolbar> -->
 
 	<ion-content class="app-content">
-		<ion-card style="    position: relative;
+		<ion-card style="position: relative;
 			top: 100px;
 			z-index: 1;
-			left: 170px;
 			overflow: visible;
-			height: 70%;
+			height: 70%;left: 60%;
 			background: #fabbae7a;    border-radius: 10px;">
 
 
@@ -25,11 +24,11 @@
 							bottom: 15px;
 							position: relative;    border-radius: 10px;">
 					
-					<span style="margin-left: 15px;
+					<span style="margin-left: 15px;margin-left: 20px;
 								margin-top: 15px;
 								color:#7797f4;
 								font-size: 30px;" (click)="closeMenu()">
-						<ion-icon name="menu"></ion-icon>
+						<ion-icon class="sub-menu-icon" name="menu"></ion-icon>
 					</span>
 
 				</ion-card>

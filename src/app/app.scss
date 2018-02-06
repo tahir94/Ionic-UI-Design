@@ -24,9 +24,13 @@
 .menu-content {
 	::-webkit-scrollbar{ display:none; } 
 }
+.sub-menu-icon{
+	margin-top: 25px;
+}
 .menu-list{
 	position: relative;
-    bottom: 50%;
+	bottom: 50%;
+	margin-left: 20px;
 }
 .menu-button {
 	background-color: transparent;
