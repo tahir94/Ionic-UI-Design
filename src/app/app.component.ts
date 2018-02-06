@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // camera plugins imports
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions, DestinationType } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
@@ -25,7 +25,7 @@ export class MyApp {
   pages : Array<{title: string, component: any}>
 
 
-  constructor( private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+  constructor(private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
 
 	// used for an example of ngFor and navigation
     this.pages = [
@@ -62,8 +62,14 @@ export class MyApp {
 	   // If it's base64:
 	   let base64Image = 'data:image/jpeg;base64,' + imageData;
 	   console.log(base64Image);
-	   
-	  }, (err) => {
+	//    if(this.platform.is('android') && DestinationType === this.camera.PictureSourceType.PHOTOLIBRARY)
+		this.filePath.resolveNativePath(imageData)
+		.then(filePath =>{
+			let correctPath = filePath.substr(0,filePath.lastIndexOf('/' + 1));
+			let currentName = imageData.substring(imageData.lastIndexOf('/') + 1,imageData.lastIndexOf('?'));
+			// this.copy
+		})
+}, (err) => {
 	   // Handle error
 	  });
   }
