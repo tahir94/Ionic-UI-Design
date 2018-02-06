@@ -19,6 +19,15 @@
 .app-content{
 	background: linear-gradient(#F78D53, #F45F73);
 }
+.image-container{
+	width: 15%;
+    position: absolute;
+    left: 10%;
+    top: 6%;	
+}
+.profile-image {
+	border-radius: 50px;
+}
 .menu-content > .menu-inner{
 	width : 100%;
 }
