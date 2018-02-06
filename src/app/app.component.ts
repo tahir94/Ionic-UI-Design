@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -19,7 +20,7 @@ export class MyApp {
   pages : Array<{title: string, component: any}>
 
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+  constructor(private camera: Camera,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
 
 	// used for an example of ngFor and navigation
     this.pages = [
@@ -41,6 +42,23 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+  openCamera(){
+	const options: CameraOptions = {
+		quality: 100,
+		destinationType: this.camera.DestinationType.DATA_URL,
+		encodingType: this.camera.EncodingType.JPEG,
+		mediaType: this.camera.MediaType.PICTURE
+	  }
+	  
+	  this.camera.getPicture(options).then((imageData) => {
+		  console.log('image data !!!',imageData)
+	   // imageData is either a base64 encoded string or a file URI
+	   // If it's base64:
+	   let base64Image = 'data:image/jpeg;base64,' + imageData;
+	  }, (err) => {
+	   // Handle error
+	  });
   }
 // demo(){
 // 	this.menu.swipeEnable(false);
