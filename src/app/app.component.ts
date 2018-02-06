@@ -2,7 +2,12 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+// camera plugins imports
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
@@ -20,7 +25,7 @@ export class MyApp {
   pages : Array<{title: string, component: any}>
 
 
-  constructor(private camera: Camera,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+  constructor( private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
 
 	// used for an example of ngFor and navigation
     this.pages = [
@@ -56,6 +61,8 @@ export class MyApp {
 	   // imageData is either a base64 encoded string or a file URI
 	   // If it's base64:
 	   let base64Image = 'data:image/jpeg;base64,' + imageData;
+	   console.log(base64Image);
+	   
 	  }, (err) => {
 	   // Handle error
 	  });
