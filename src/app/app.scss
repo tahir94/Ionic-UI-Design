@@ -14,15 +14,48 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
 .app-content{
 	background: linear-gradient(#F78D53, #F45F73);
 }
 .menu-content > .menu-inner{
-	// ::-webkit-scrollbar{ display:none; } 
 	width : 100%;
 }
 .menu-content {
+	width:100%;
+	z-index:1;
 	::-webkit-scrollbar{ display:none; } 
+}
+.parent-card {
+	position: relative;
+	top: 100px;
+	z-index: 1;
+	overflow: visible;
+	height: 70%;left: 60%;
+	background: #fabbae7a;   
+    border-radius: 10px;
+}
+.sub-card {
+	height: 105%;
+	position: relative;
+	bottom: 10px;
+	overflow: visible;
+	background: #fbddd570;  
+	border-radius: 10px;
+}
+.sub-child-card {
+	height: 106%;
+	bottom: 15px;
+	position: relative;   
+    border-radius: 10px;	
+}
+.sub-menu-span{
+	margin-left: 15px;
+	margin-left: 20px;
+	margin-top: 15px;
+	color:#7797f4;
+	font-size: 30px;	
 }
 .sub-menu-icon{
 	margin-top: 25px;
@@ -38,16 +71,14 @@
 	border: 0 !important;
 	margin-bottom: 20px;
 }
-.menu-button:hover{
+.menu-button:hover {
 	background: #fabbae61
 }
 
 .menu-button > div {
 	border:0 !important;
 }
-// .menu-button > .item-inner{
-// 	border:0
-// }
+
 body{
 	::-webkit-scrollbar{ display:none; } 
 }

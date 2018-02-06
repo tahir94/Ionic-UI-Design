@@ -1,41 +1,18 @@
-<ion-menu style="width:100%;z-index:1" class="menu-content" [content]="content">
-
-	<!-- <ion-toolbar>
-		<ion-title>Pages</ion-title>
-	</ion-toolbar> -->
-
+<ion-menu class="menu-content" [content]="content">
 	<ion-content class="app-content">
-		<ion-card style="position: relative;
-			top: 100px;
-			z-index: 1;
-			overflow: visible;
-			height: 70%;left: 60%;
-			background: #fabbae7a;    border-radius: 10px;">
 
-
-		
-			<ion-card style="    height: 105%;
-					position: relative;
-					bottom: 10px;
-					overflow: visible;
-					background: #fbddd570;    border-radius: 10px;">
-
-				<ion-card style="    height: 106%;
-							bottom: 15px;
-							position: relative;    border-radius: 10px;">
-					
-					<span style="margin-left: 15px;margin-left: 20px;
-								margin-top: 15px;
-								color:#7797f4;
-								font-size: 30px;" (click)="closeMenu()">
+		<ion-card class="parent-card">
+			<ion-card class="sub-card">
+				<ion-card class="sub-child-card">
+					<span class="sub-menu-span" (click)="closeMenu()">
 						<ion-icon class="sub-menu-icon" name="menu"></ion-icon>
 					</span>
-
 				</ion-card>
 			</ion-card>
 		</ion-card>
-		<ion-list class="menu-list" >
-			<button  class="menu-button" ion-item (click)="openPage(homePage)">
+
+		<ion-list class="menu-list">
+			<button class="menu-button" ion-item (click)="openPage(homePage)">
 				Home
 			</button>
 			<button class="menu-button" ion-item (click)="openPage(friendsPage)">
@@ -48,15 +25,8 @@
 				Close Menu
 			</button>
 		</ion-list>
+
 	</ion-content>
-	
 </ion-menu>
 
-<!-- <div *ngIf="isHomePage">
-<page-home [menuButton]="isHomeNav"></page-home>
-</div> -->
-<ion-nav id="nav"  [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-
-
-
-<!-- <ion-nav [root]="rootPage"></ion-nav> -->
+<ion-nav id="nav" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
