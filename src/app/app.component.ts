@@ -49,29 +49,29 @@ export class MyApp {
     });
   }
   openCamera(){
-	const options: CameraOptions = {
-		quality: 100,
-		destinationType: this.camera.DestinationType.DATA_URL,
-		encodingType: this.camera.EncodingType.JPEG,
-		mediaType: this.camera.MediaType.PICTURE
-	  }
+	// const options: CameraOptions = {
+	// 	quality: 100,
+	// 	destinationType: this.camera.DestinationType.DATA_URL,
+	// 	encodingType: this.camera.EncodingType.JPEG,
+	// 	mediaType: this.camera.MediaType.PICTURE
+	//   }
 	  
-	  this.camera.getPicture(options).then((imageData) => {
-		  console.log('image data !!!',imageData)
+	//   this.camera.getPicture(options).then((imageData) => {
+	// 	  console.log('image data !!!',imageData)
 	   // imageData is either a base64 encoded string or a file URI
 	   // If it's base64:
-	   let base64Image = 'data:image/jpeg;base64,' + imageData;
-	   console.log(base64Image);
+	//    let base64Image = 'data:image/jpeg;base64,' + imageData;
+	//    console.log(base64Image);
 	//    if(this.platform.is('android') && DestinationType === this.camera.PictureSourceType.PHOTOLIBRARY)
-		this.filePath.resolveNativePath(imageData)
-		.then(filePath =>{
-			let correctPath = filePath.substr(0,filePath.lastIndexOf('/' + 1));
-			let currentName = imageData.substring(imageData.lastIndexOf('/') + 1,imageData.lastIndexOf('?'));
-			// this.copy
-		})
-}, (err) => {
-	   // Handle error
-	  });
+		// this.filePath.resolveNativePath(imageData)
+		// .then(filePath =>{
+		// 	let correctPath = filePath.substr(0,filePath.lastIndexOf('/' + 1));
+		// 	let currentName = imageData.substring(imageData.lastIndexOf('/') + 1,imageData.lastIndexOf('?'));
+		// 	// this.copy
+		// })
+// }, (err) => {
+// 	   // Handle error
+// 	  });
   }
 // demo(){
 // 	this.menu.swipeEnable(false);
