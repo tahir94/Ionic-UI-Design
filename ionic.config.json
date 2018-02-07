@@ -1,6 +1,6 @@
 {
   "name": "ui-design",
-  "app_id": "",
+  "app_id": "f90dd9ee",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
