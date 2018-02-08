@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { Platform,Nav,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ActionSheetController } from 'ionic-angular';
 
 // camera plugins imports
 import { Camera, CameraOptions, DestinationType } from '@ionic-native/camera';
@@ -11,21 +12,25 @@ import { FilePath } from '@ionic-native/file-path';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+
+declare var cordova: any;
+
 @Component({
 	templateUrl: 'app.html',
 })
 export class MyApp {
+
 	isHomeNav: any = true;
 	isHomePage : boolean = false;
 
 //   isHomeNav  : boolean;
   @ViewChild(Nav) nav: Nav;
 
-  rootPage : any = LoginPage;
+  rootPage : any = HomePage;
   pages : Array<{title: string, component: any}>
 
 
-  constructor(private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+  constructor(public actionSheetCtrl: ActionSheetController,private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
 
 	// used for an example of ngFor and navigation
     this.pages = [
@@ -49,6 +54,34 @@ export class MyApp {
     });
   }
   openCamera(){
+
+	let actionSheet = this.actionSheetCtrl.create({
+		title: 'Select Image Source',
+		// cssClass: 'action-sheets-basic-page',
+		buttons: [
+		  {
+			text: 'Load from Library',
+			role: 'destructive',
+			// icon: !this.platform.is('ios') ? 'trash' : null,
+			handler: () => {
+				this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+			}
+		  },
+		  {
+			text: 'Use Camera',
+			// icon: !this.platform.is('ios') ? 'share' : null,
+			handler: () => {
+				this.takePicture(this.camera.PictureSourceType.CAMERA);
+			}
+		  },
+		  {
+			text: 'Cancel',
+			role: 'cancel'
+		  }
+		] 
+	  });
+	  actionSheet.present();
+
 	// const options: CameraOptions = {
 	// 	quality: 100,
 	// 	destinationType: this.camera.DestinationType.DATA_URL,
@@ -56,23 +89,63 @@ export class MyApp {
 	// 	mediaType: this.camera.MediaType.PICTURE
 	//   }
 	  
-	//   this.camera.getPicture(options).then((imageData) => {
-	// 	  console.log('image data !!!',imageData)
-	   // imageData is either a base64 encoded string or a file URI
-	   // If it's base64:
-	//    let base64Image = 'data:image/jpeg;base64,' + imageData;
-	//    console.log(base64Image);
-	//    if(this.platform.is('android') && DestinationType === this.camera.PictureSourceType.PHOTOLIBRARY)
-		// this.filePath.resolveNativePath(imageData)
-		// .then(filePath =>{
-		// 	let correctPath = filePath.substr(0,filePath.lastIndexOf('/' + 1));
-		// 	let currentName = imageData.substring(imageData.lastIndexOf('/') + 1,imageData.lastIndexOf('?'));
-		// 	// this.copy
-		// })
+// 	  this.camera.getPicture(options).then((imageData) => {
+// 		  console.log('image data !!!',imageData)
+// 	//    imageData is either a base64 encoded string or a file URI
+// 	//    If it's base64:
+// 	   let base64Image = 'data:image/jpeg;base64,' + imageData;
+// 	   console.log(base64Image);
+// 	   if(this.platform.is('android') && DestinationType === this.camera.PictureSourceType.PHOTOLIBRARY)
+// 		this.filePath.resolveNativePath(imageData)
+// 		.then(filePath =>{
+// 			let correctPath = filePath.substr(0,filePath.lastIndexOf('/' + 1));
+// 			let currentName = imageData.substring(imageData.lastIndexOf('/') + 1,imageData.lastIndexOf('?'));
+// 			// this.copy
+// 		})
 // }, (err) => {
 // 	   // Handle error
 // 	  });
   }
+
+
+  
+public takePicture(sourceType) {
+  // Create options for the Camera Dialog
+  var options = {
+    quality: 100,
+    sourceType: sourceType,
+    saveToPhotoAlbum: false,
+    correctOrientation: true
+  };
+ 
+  // Get the data of an image
+  this.camera.getPicture(options).then((imagePath) => {
+    // Special handling for Android library
+    if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+      this.filePath.resolveNativePath(imagePath)
+        .then(filePath => {
+          let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+          let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+          this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        });
+    } else {
+      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+    }
+  }, (err) => {
+    this.presentToast('Error while selecting image.');
+  });
+}
+
+
+// Create a new name for the image
+private createFileName() {
+  var d = new Date(),
+  n = d.getTime(),
+  newFileName =  n + ".jpg";
+  return newFileName;
+}
 // demo(){
 // 	this.menu.swipeEnable(false);
 // }
@@ -80,14 +153,16 @@ closeMenu(){
 	console.log('closeed');
 	this.isHomeNav = true;
 	this.menu.close();
-	this.isHomePage  = true;
-	
+	this.isHomePage  = true;	
 }
   openPage(page) {
 	  console.log("openPage");	
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+  signout(){
+	  this.nav.setRoot(LoginPage)
   }
 }
 
