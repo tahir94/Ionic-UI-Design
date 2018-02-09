@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform,Nav,MenuController } from 'ionic-angular';
+import { Platform,Nav,MenuController,ToastController,Loading } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ActionSheetController } from 'ionic-angular';
@@ -19,7 +19,8 @@ declare var cordova: any;
 	templateUrl: 'app.html',
 })
 export class MyApp {
-
+	lastImage: string = null;
+	loading: Loading;
 	isHomeNav: any = true;
 	isHomePage : boolean = false;
 
@@ -30,7 +31,7 @@ export class MyApp {
   pages : Array<{title: string, component: any}>
 
 
-  constructor(public actionSheetCtrl: ActionSheetController,private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
+  constructor(public actionSheetCtrl: ActionSheetController,public toastCtrl: ToastController,private transfer: Transfer, private file: File, private filePath: FilePath,private camera: Camera,private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menu : MenuController) {
 
 	// used for an example of ngFor and navigation
     this.pages = [
@@ -138,6 +139,24 @@ public takePicture(sourceType) {
   });
 }
 
+// Copy the image to a local folder
+private copyFileToLocalDir(namePath, currentName, newFileName) {
+	this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+	  this.lastImage = newFileName;
+	}, error => {
+	  this.presentToast('Error while storing file.');
+	});
+  }
+  private presentToast(text) {
+	let toast = this.toastCtrl.create({
+	  message: text,
+	  duration: 3000,
+	  position: 'top'
+	});
+	toast.present();
+  }
+
+  
 
 // Create a new name for the image
 private createFileName() {
@@ -145,6 +164,14 @@ private createFileName() {
   n = d.getTime(),
   newFileName =  n + ".jpg";
   return newFileName;
+}
+// Always get the accurate path to your apps folder
+public pathForImage(img) {
+	if (img === null) {
+	  return '';
+	} else {
+	  return cordova.file.dataDirectory + img;
+	}
 }
 // demo(){
 // 	this.menu.swipeEnable(false);
