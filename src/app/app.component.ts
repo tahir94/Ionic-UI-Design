@@ -19,6 +19,9 @@ declare var cordova: any;
 	templateUrl: 'app.html',
 })
 export class MyApp {
+	public base64Image : string;
+	isProfileImg : boolean = true;
+	isCameraImg : boolean = false;
 	lastImage: string = null;
 	loading: Loading;
 	isHomeNav: any = true;
@@ -55,7 +58,8 @@ export class MyApp {
     });
   }
   openCamera(){
-
+	console.log('camera clicked');
+	
 	let actionSheet = this.actionSheetCtrl.create({
 		title: 'Select Image Source',
 		// cssClass: 'action-sheets-basic-page',
@@ -65,14 +69,14 @@ export class MyApp {
 			role: 'destructive',
 			// icon: !this.platform.is('ios') ? 'trash' : null,
 			handler: () => {
-				this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+				// this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
 			}
 		  },
 		  {
 			text: 'Use Camera',
 			// icon: !this.platform.is('ios') ? 'share' : null,
 			handler: () => {
-				this.takePicture(this.camera.PictureSourceType.CAMERA);
+				this.takePicture();
 			}
 		  },
 		  {
@@ -82,7 +86,22 @@ export class MyApp {
 		] 
 	  });
 	  actionSheet.present();
-
+	}
+	takePicture (){
+		console.log('camera open');
+		this.camera.getPicture({
+			destinationType : this.camera.DestinationType.DATA_URL,
+			targetWidth : 100,
+			targetHeight : 100
+		}).then((imageData)=>{
+		
+		   this.base64Image = 'data:image/jpeg;base64,' + imageData;
+			this.isProfileImg = false;
+			this.isCameraImg = true;
+		}),(err)=>{
+			console.log(err);
+		}
+	}
 	// const options: CameraOptions = {
 	// 	quality: 100,
 	// 	destinationType: this.camera.DestinationType.DATA_URL,
@@ -106,73 +125,73 @@ export class MyApp {
 // }, (err) => {
 // 	   // Handle error
 // 	  });
-  }
+
 
 
   
-public takePicture(sourceType) {
-  // Create options for the Camera Dialog
-  var options = {
-    quality: 100,
-    sourceType: sourceType,
-    saveToPhotoAlbum: false,
-    correctOrientation: true
-  };
+// public takePicture(sourceType) {
+//   // Create options for the Camera Dialog
+//   var options = {
+//     quality: 100,
+//     sourceType: sourceType,
+//     saveToPhotoAlbum: false,
+//     correctOrientation: true
+//   };
  
-  // Get the data of an image
-  this.camera.getPicture(options).then((imagePath) => {
-    // Special handling for Android library
-    if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-      this.filePath.resolveNativePath(imagePath)
-        .then(filePath => {
-          let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-          let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-          this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        });
-    } else {
-      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-    }
-  }, (err) => {
-    this.presentToast('Error while selecting image.');
-  });
-}
+//   // Get the data of an image
+//   this.camera.getPicture(options).then((imagePath) => {
+//     // Special handling for Android library
+//     if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+//       this.filePath.resolveNativePath(imagePath)
+//         .then(filePath => {
+//           let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+//           let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+//           this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+//         });
+//     } else {
+//       var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+//       var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+//       this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+//     }
+//   }, (err) => {
+//     this.presentToast('Error while selecting image.');
+//   });
+// }
 
 // Copy the image to a local folder
-private copyFileToLocalDir(namePath, currentName, newFileName) {
-	this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-	  this.lastImage = newFileName;
-	}, error => {
-	  this.presentToast('Error while storing file.');
-	});
-  }
-  private presentToast(text) {
-	let toast = this.toastCtrl.create({
-	  message: text,
-	  duration: 3000,
-	  position: 'top'
-	});
-	toast.present();
-  }
+// private copyFileToLocalDir(namePath, currentName, newFileName) {
+// 	this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+// 	  this.lastImage = newFileName;
+// 	}, error => {
+// 	  this.presentToast('Error while storing file.');
+// 	});
+//   }
+//   private presentToast(text) {
+// 	let toast = this.toastCtrl.create({
+// 	  message: text,
+// 	  duration: 3000,
+// 	  position: 'top'
+// 	});
+// 	toast.present();
+//   }
 
   
 
 // Create a new name for the image
-private createFileName() {
-  var d = new Date(),
-  n = d.getTime(),
-  newFileName =  n + ".jpg";
-  return newFileName;
-}
-// Always get the accurate path to your apps folder
-public pathForImage(img) {
-	if (img === null) {
-	  return '';
-	} else {
-	  return cordova.file.dataDirectory + img;
-	}
-}
+// private createFileName() {
+//   var d = new Date(),
+//   n = d.getTime(),
+//   newFileName =  n + ".jpg";
+//   return newFileName;
+// }
+// // Always get the accurate path to your apps folder
+// public pathForImage(img) {
+// 	if (img === null) {
+// 	  return '';
+// 	} else {
+// 	  return cordova.file.dataDirectory + img;
+// 	}
+// }
 // demo(){
 // 	this.menu.swipeEnable(false);
 // }
@@ -192,4 +211,5 @@ closeMenu(){
 	  this.nav.setRoot(LoginPage)
   }
 }
+
 

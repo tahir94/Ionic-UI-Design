@@ -1,12 +1,17 @@
 <ion-menu class="menu-content" [content]="content">
 	<ion-content class="app-content">
-		<div (click)="openCamera()" class="image-container">
-			<img class="profile-image" src="assets/imgs/profile.png" alt="">
+		<div *ngIf="isProfileImg" (click)="openCamera()" class="image-container">
+			<img  class="profile-image" src="assets/imgs/profile.png" alt="">
+			<img class="profile-image" [src]="base64Image" *ngIf="base64Image" />
+		</div>
+		<div *ngIf="isCameraImg" (click)="openCamera()" class="camera-container">
+			<!-- <img  class="profile-image" src="assets/imgs/profile.png" alt=""> -->
+			<img class="camera-image" [src]="base64Image" *ngIf="base64Image" />
 		</div>
 		<ion-card class="parent-card">
 			<ion-card class="sub-card">
 				<ion-card class="sub-child-card">
-					<span class="sub-menu-span" (click)="closeMenu()">
+					<span class="sub-menu-span" (click)="closeMenu()" *ngIf="base64Image">
 						<ion-icon class="sub-menu-icon" name="menu"></ion-icon>
 					</span>
 				</ion-card>

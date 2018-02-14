@@ -19,11 +19,22 @@
 .app-content{
 	background: linear-gradient(#F78D53, #F45F73);
 }
+.camera-container{
+	position: absolute;
+    left: 10% !important;
+	top: 6% !important;
+	width:20% !important;
+	height: 20% !important; 
+}
+.camera-image{
+	border-radius: 100px;
+}
 .image-container{
 	width: 15%;
     position: absolute;
-    left: 10%;
-    top: 6%;	
+    left: 10% !important;
+	top: 6% !important;	
+	// overflow: hidden
 }
 .profile-image {
 	border-radius: 50px;
